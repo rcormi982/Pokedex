@@ -32,6 +32,15 @@
                     android:text="Nombre Pokemon"
                     android:textAppearance="?textAppearanceHeadline6">
                 </TextView>
+                <ImageView
+                    android:id="@+id/pokemon_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:scaleType="centerCrop">
+                </ImageView>
+
+
             </LinearLayout>
         </LinearLayout>
 
