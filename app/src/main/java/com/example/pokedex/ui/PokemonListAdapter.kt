@@ -8,15 +8,16 @@ import com.example.pokedex.data.Pokemon
 import com.example.pokedex.data.remote.PokemonListResponse
 import com.example.pokedex.databinding.PokemonListItemBinding
 
-public class PokemonListAdapter: ListAdapter<PokemonListResponse, PokemonListAdapter.PokemonViewHolder>() {
+public class PokemonListAdapter: ListAdapter<PokemonListResponse, PokemonListAdapter.PokemonViewHolder>(PokemonDiffCallback) {
     class PokemonViewHolder(
-        private val binding: PokemonListItemBinding): RecyclerView.ViewHolder(binding.root){
-            fun bind(pokemon: Pokemon){
-                binding.pokemonName.text = pokemon.name
-                binding.pokemonImage.load(pokemon.imageUrl)
+        private val binding: PokemonListItemBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(pokemon: Pokemon) {
+            binding.pokemonName.text = pokemon.name
+            //binding.pokemonImage.load(pokemon.imageUrl)
 
-            }
         }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
         val binding = PokemonListItemBinding.inflate(
@@ -31,5 +32,13 @@ public class PokemonListAdapter: ListAdapter<PokemonListResponse, PokemonListAda
         holder.bind(getItem(position))
     }
 
+    object PokemonDiffCallback {
+        override fun areItemsTheSame(oldItem: Pokemon, newItem: Pokemon) =
+            oldItem.id == newItem.id
 
+        override fun areContentsTheSame(oldItem: Pokemon, newItem: Pokemon) =
+            oldItem.id == newItem.id &&
+                    oldItem.name == newItem.name
+
+    }
 }
